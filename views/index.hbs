@@ -1,4 +1,9 @@
 <form action="/xfile" method="post" enctype="multipart/form-data">
 	<input type="file" name="xfile">
 	<input type="submit" class="btn btn-primary" value="Upload :D">
+	{{#if message.success}}
+	<div class="alert alert-success">
+    <a href="xfiles/{{message.success}}">{{message.success}}</a>
+  </div>
+ 	{{/if}}
 </form>

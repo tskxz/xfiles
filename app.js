@@ -4,6 +4,7 @@ const app = express()
 const port = 3000
 const handlebars = express_hbs.create({extname: '.hbs'})
 const fileUpload = require('express-fileupload')
+const flash = require('express-flash')
 
 // Usar o template handlebars
 app.engine('hbs', handlebars.engine)
@@ -14,6 +15,14 @@ app.use('/xfiles', express.static('uploads'))
 
 // Inicializar o fileUpload
 app.use(fileUpload());
+
+// Inicializa o flash para mandar aviso sem redirecionar
+app.use(flash())
+
+app.use((req, res, next) => {
+	res.locals.message = req.flash()
+	next();
+})
 
 // Teste de conexão
 app.get("/ping", (req, res) => {

@@ -6,6 +6,8 @@ const handlebars = express_hbs.create({extname: '.hbs'})
 const fileUpload = require('express-fileupload')
 const flash = require('express-flash')
 const session = require('express-session')
+const { v4: uuidv4 } = require('uuid');
+const path = require('path')
 
 // Usar o template handlebars
 app.engine('hbs', handlebars.engine)
@@ -53,6 +55,13 @@ app.post('/xfile', function(req, res) {
 
 	// Obter o ficheiro
 	xFile = req.files.xfile
+
+	// Gera letras aleatorias e pega tambem na extensao do ficheiro
+	random_letters = uuidv4().substring(0,5);
+	file_extension = path.extname(xFile.name)
+
+	xFile.name = random_letters + file_extension
+
 	uploadPath = __dirname + '/uploads/' + xFile.name
 
 	xFile.mv(uploadPath, function(err){

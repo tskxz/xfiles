@@ -37,7 +37,7 @@ app.get("/ping", (req, res) => {
 })
 
 // Rota para ir dar upload aos ficheiros
-app.get('/xfile', (req, res) => {
+app.get('/xfiles', (req, res) => {
 	res.render('index')
 })
 
@@ -59,7 +59,7 @@ app.post('/xfile', function(req, res) {
 		if(err)
 			return res.status(500).send(err)
 		req.flash('success', `${xFile.name}`)
-		res.redirect('/xfile')
+		res.redirect('/xfiles')
 	})
 
 })

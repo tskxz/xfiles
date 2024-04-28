@@ -9,6 +9,7 @@ const session = require('express-session')
 const { v4: uuidv4 } = require('uuid');
 const path = require('path')
 const mongoose = require('mongoose')
+const xFileRoute = require("./routes/xfileRoute")
 
 // Usar o template handlebars
 app.engine('hbs', handlebars.engine)
@@ -20,6 +21,10 @@ app.use('/xfiles', express.static('uploads'))
 // Inicializar o fileUpload
 app.use(fileUpload());
 
+// Configuracao das middlewares
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
 app.use(session({
 	secret: "sh!",
 	resave: false,
@@ -28,6 +33,9 @@ app.use(session({
 
 // Inicializa o flash para mandar aviso sem redirecionar
 app.use(flash())
+
+// Rotas
+app.use("/api/xfiles", xFileRoute)
 
 app.use((req, res, next) => {
 	res.locals.message = req.flash()

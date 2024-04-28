@@ -19,7 +19,7 @@ const xFileSchema = mongoose.Schema(
 		md5: {
 			type: String,
 			required: false,
-		}
+		},
 
 		mimetype: {
 			type: String,

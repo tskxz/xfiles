@@ -8,6 +8,7 @@ const flash = require('express-flash')
 const session = require('express-session')
 const { v4: uuidv4 } = require('uuid');
 const path = require('path')
+const mongoose = require('mongoose')
 
 // Usar o template handlebars
 app.engine('hbs', handlebars.engine)
@@ -55,6 +56,7 @@ app.post('/xfile', function(req, res) {
 
 	// Obter o ficheiro
 	xFile = req.files.xfile
+	console.log(xFile)
 
 	// Gera letras aleatorias e pega tambem na extensao do ficheiro
 	random_letters = uuidv4().substring(0,5);
@@ -73,7 +75,13 @@ app.post('/xfile', function(req, res) {
 
 })
 
-// Rodar o servidor
-app.listen(port, () => {
-	console.log(`Running on port: ${port}`)
+// Conectar a base de dados
+mongoose.connect("mongodb+srv://tanjilkh:IdvnxUuVP2PoDsCA@cluster0.wv4a82s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+.then(() => {
+	console.log("Conectado a base de dados")
+	// Rodar o servidor
+	app.listen(port, () => {
+		console.log(`Running on port: ${port}`)
+	})
 })
+

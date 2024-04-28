@@ -73,6 +73,7 @@ app.post('/xfile', function(req, res) {
 
 	uploadPath = __dirname + '/uploads/' + xFile.name
 
+	// Se for enviado, chama a funcao storefile para armazenar as informacoese sobre o ficheiro na base de dados
 	xFile.mv(uploadPath, function(err){
 		if(err) return res.status(500).send(err)
 		req.body.uploadedFilePath = uploadPath

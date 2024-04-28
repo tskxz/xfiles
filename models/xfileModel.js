@@ -8,7 +8,7 @@ const xFileSchema = mongoose.Schema(
 
 		size: {
 			type: Number,
-			required: true,
+			required: false,
 		},
 
 		encoding: {
@@ -23,7 +23,7 @@ const xFileSchema = mongoose.Schema(
 
 		mimetype: {
 			type: String,
-			required: true,
+			required: false,
 		}
 	},
 

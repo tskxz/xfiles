@@ -10,6 +10,16 @@ const getxFiles = async (req, res) => {
 	}
 }
 
+const storeFile = async(req, res) => {
+	try {
+		const xFile_ = await xFile.create(req.body)
+		res.status(200).json(xFile_)
+	} catch (error) {
+		res.status(500).json({message: error.message})
+	}
+}
+
 module.exports = {
-	getxFiles
+	getxFiles,
+	storeFile
 }

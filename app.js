@@ -1,3 +1,7 @@
+// Importar as configuracoes do ficheiro .env
+require('dotenv').config()
+console.log(process.env)
+
 const express = require("express")
 const express_hbs = require("express-handlebars")
 const app = express()
@@ -83,7 +87,7 @@ app.post('/xfile', function(req, res) {
 })
 
 // Conectar a base de dados
-mongoose.connect("mongodb+srv://tanjilkh:IdvnxUuVP2PoDsCA@cluster0.wv4a82s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.DATABASE_STRING)
 .then(() => {
 	console.log("Conectado a base de dados")
 	// Rodar o servidor

@@ -10,7 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path')
 const mongoose = require('mongoose')
 const xFileRoute = require("./routes/xfileRoute")
-
+const {storeFile} = require("./controllers/xfileController")
 // Usar o template handlebars
 app.engine('hbs', handlebars.engine)
 app.set('view engine', 'hbs')
@@ -64,7 +64,6 @@ app.post('/xfile', function(req, res) {
 
 	// Obter o ficheiro
 	xFile = req.files.xfile
-	console.log(xFile)
 
 	// Gera letras aleatorias e pega tambem na extensao do ficheiro
 	random_letters = uuidv4().substring(0,5);
@@ -75,10 +74,9 @@ app.post('/xfile', function(req, res) {
 	uploadPath = __dirname + '/uploads/' + xFile.name
 
 	xFile.mv(uploadPath, function(err){
-		if(err)
-			return res.status(500).send(err)
-		req.flash('success', `${xFile.name}`)
-		res.redirect('/xfiles')
+		if(err) return res.status(500).send(err)
+		req.body.uploadedFilePath = uploadPath
+	storeFile(req, res);
 	})
 
 })

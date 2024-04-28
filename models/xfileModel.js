@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const xFileSchema = mongoose.Schema(
 	{
-		file_name: {
+		name: {
 			type: String,
 			required: [true, "Please enter file name"],
 		},
@@ -22,6 +22,11 @@ const xFileSchema = mongoose.Schema(
 		},
 
 		mimetype: {
+			type: String,
+			required: false,
+		},
+
+		filePath: {
 			type: String,
 			required: false,
 		}

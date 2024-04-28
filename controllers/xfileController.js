@@ -12,8 +12,16 @@ const getxFiles = async (req, res) => {
 
 const storeFile = async(req, res) => {
 	try {
-		const xFile_ = await xFile.create(req.body)
-		res.status(200).json(xFile_)
+		const {name, size, encoding, md5, mimetype} = req.files.xfile
+		const {uploadedFilePath} = req.body
+
+		const newFile = new xFile({
+			name, size, encoding, md5, mimetype, filepath: uploadedFilePath
+		})
+
+		const savedFile = await newFile.save();
+		res.redirect('/xfiles')
+
 	} catch (error) {
 		res.status(500).json({message: error.message})
 	}

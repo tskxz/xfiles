@@ -24,7 +24,9 @@ const storeFile = async(req, res) => {
 		// Guarda o documento do ficheiro na basee de dados
 		const savedFile = await newFile.save();
 
-		// Redireciona para a pagina
+		// Redireciona para a pagina com a mensagem do nome do ficheiro
+		name_file = savedFile.name
+		req.flash('success', `${name_file}`)
 		res.redirect('/xfiles')
 
 	} catch (error) {

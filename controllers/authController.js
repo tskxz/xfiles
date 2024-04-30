@@ -26,6 +26,8 @@ const signin = async(req, res) => {
 		const user = await User.find({username: req.body.username})
 		if(user.length){
 			if(await bcrypt.compare(req.body.password, user[0].password)){
+				req.session.loggedIn = true
+				req.session.username = user[0].username
 				res.status(200).json({message: "Authenticated User."})
 			} else {
 				res.status(500).json({message: "Given password is wrong."})

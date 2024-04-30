@@ -13,7 +13,10 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path')
 const mongoose = require('mongoose')
 const xFileRoute = require("./routes/xfileRoute")
+const userRoute = require("./routes/userRoute")
+const authRoute = require("./routes/authRoute")
 const {storeFile} = require("./controllers/xfileController")
+
 // Usar o template handlebars
 app.engine('hbs', handlebars.engine)
 app.set('view engine', 'hbs')
@@ -39,6 +42,8 @@ app.use(flash())
 
 // Rotas
 app.use("/api/xfiles", xFileRoute)
+app.use("/api/users", userRoute)
+app.use("/auth", authRoute)
 
 app.use((req, res, next) => {
 	res.locals.message = req.flash()
@@ -52,7 +57,12 @@ app.get("/ping", (req, res) => {
 
 // Rota para ir dar upload aos ficheiros
 app.get('/xfiles', (req, res) => {
-	res.render('index')
+	if(req.session.loggedIn){
+		res.render('index')
+	} else {
+		res.render('signin')
+	}
+	
 })
 
 // Faz o upload

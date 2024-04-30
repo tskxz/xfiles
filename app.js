@@ -58,10 +58,9 @@ app.get("/ping", (req, res) => {
 // Rota para ir dar upload aos ficheiros
 app.get('/xfiles', (req, res) => {
 	if(req.session.loggedIn){
-		// res.render('index')
-		res.status(200).json({message: "Hello."})
+		res.render('index')
 	} else {
-		res.status(500).json({message: "You need to authenticate first!"})
+		res.render('signin')
 	}
 	
 })

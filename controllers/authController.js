@@ -28,7 +28,7 @@ const signin = async(req, res) => {
 			if(await bcrypt.compare(req.body.password, user[0].password)){
 				req.session.loggedIn = true
 				req.session.username = user[0].username
-				res.status(200).json({message: "Authenticated User."})
+				res.redirect('/xfiles')
 			} else {
 				res.status(500).json({message: "Given password is wrong."})
 			}

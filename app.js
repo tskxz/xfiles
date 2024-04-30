@@ -14,6 +14,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const xFileRoute = require("./routes/xfileRoute")
 const userRoute = require("./routes/userRoute")
+const authRoute = require("./routes/authRoute")
 const {storeFile} = require("./controllers/xfileController")
 
 // Usar o template handlebars
@@ -42,6 +43,7 @@ app.use(flash())
 // Rotas
 app.use("/api/xfiles", xFileRoute)
 app.use("/api/users", userRoute)
+app.use("/auth", authRoute)
 
 app.use((req, res, next) => {
 	res.locals.message = req.flash()

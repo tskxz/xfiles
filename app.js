@@ -13,7 +13,9 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path')
 const mongoose = require('mongoose')
 const xFileRoute = require("./routes/xfileRoute")
+const userRoute = require("./routes/userRoute")
 const {storeFile} = require("./controllers/xfileController")
+
 // Usar o template handlebars
 app.engine('hbs', handlebars.engine)
 app.set('view engine', 'hbs')
@@ -39,6 +41,7 @@ app.use(flash())
 
 // Rotas
 app.use("/api/xfiles", xFileRoute)
+app.use("/api/users", userRoute)
 
 app.use((req, res, next) => {
 	res.locals.message = req.flash()

@@ -1,9 +1,88 @@
-<form action="/xfile" method="post" enctype="multipart/form-data">
-	<input type="file" name="xfile">
-	<input type="submit" class="btn btn-primary" value="Upload :D">
-	{{#if message.success}}
-	<div class="alert alert-success">
-    <a href="{{message.success}}">{{message.success}}</a>
-  </div>
- 	{{/if}}
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>File Upload</h2>
+        <form action="/xfile" method="post" enctype="multipart/form-data">
+            <input type="file" name="xfile">
+            <br>
+            <input type="submit" class="btn btn-primary" value="Upload">
+            {{#if message.success}}
+            <div class="alert alert-success">
+                <a href="{{message.success}}">{{message.success}}</a>
+            </div>
+            {{/if}}
+        </form>
+    </div>
+</body>
+</html>

@@ -31,19 +31,20 @@ app.use(fileUpload());
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
+// Inicializa o flash para mandar aviso sem redirecionar
+app.use(flash())
+
 app.use(session({
 	secret: "sh!",
 	resave: false,
 	saveUninitialized: false
 }))
 
-// Inicializa o flash para mandar aviso sem redirecionar
-app.use(flash())
-
 // Rotas
+app.use("/auth", authRoute)
 app.use("/api/xfiles", xFileRoute)
 app.use("/api/users", userRoute)
-app.use("/auth", authRoute)
+
 
 app.use((req, res, next) => {
 	res.locals.message = req.flash()
@@ -58,6 +59,7 @@ app.get("/ping", (req, res) => {
 // Rota para ir dar upload aos ficheiros
 app.get('/xfiles', (req, res) => {
 	if(req.session.loggedIn){
+		res.locals.session = req.session
 		res.render('index')
 	} else {
 		res.render('signin')

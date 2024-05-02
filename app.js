@@ -58,6 +58,7 @@ app.get("/ping", (req, res) => {
 // Rota para ir dar upload aos ficheiros
 app.get('/xfiles', (req, res) => {
 	if(req.session.loggedIn){
+		res.locals.session = req.session
 		res.render('index')
 	} else {
 		res.render('signin')

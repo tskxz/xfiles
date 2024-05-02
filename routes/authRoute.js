@@ -18,6 +18,11 @@ router.get('/signin', (req, res) => {
 	
 })
 
+router.get('/logout', (req, res) => {
+	req.session.destroy()
+	res.redirect('/auth/signin')
+})
+
 router.get('/signup', (req, res) => {
 	if(req.session){
 		res.redirect('/xfiles')

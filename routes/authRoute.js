@@ -10,10 +10,12 @@ router.post('/signin', authController.signin)
 
 // Rotas para renderizar as paginas
 router.get('/signin', (req, res) => {
-	if(req.session){
-		res.redirect('/xfiles')
+	if(!req.session.loggedIn){
+		res.render('signin', {
+			error: req.flash("error")
+		})
 	} else {
-		res.render('signin')
+		res.redirect('/xfiles')
 	}
 	
 })
@@ -24,10 +26,12 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/signup', (req, res) => {
-	if(req.session){
-		res.redirect('/xfiles')
+	if(!req.session.loggedIn){
+		res.render('signup', {
+			error: req.flash("error")
+		})
 	} else {
-		res.render('signup')
+		res.redirect('/xfiles')
 	}
 	
 })

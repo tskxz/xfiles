@@ -75,6 +75,9 @@
         <label for="pass">Password:</label>
         <input name="password" id="pass" type="password" placeholder="Enter your password" required>
         <input name="signin" type="submit" value="Sign in">
+        {{#if error}}
+            <div class="error-message">{{ error }}</div>
+        {{/if}}
         <a href="/auth/signup">Don't have an account? Sign up here</a>
     </form>
 </body>

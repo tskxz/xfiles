@@ -34,7 +34,8 @@ const signin = async(req, res) => {
 				req.session.username = user[0].username
 				res.redirect('/xfiles')
 			} else {
-				res.status(500).json({message: "Given password is wrong."})
+				req.flash("error", "Given password is wrong.")
+				res.redirect('/auth/signin')
 			}
 		} else {
 			res.status(500).json({message: "User not found."})

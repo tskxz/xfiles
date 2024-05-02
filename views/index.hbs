@@ -82,6 +82,11 @@
                 <a href="{{message.success}}">{{message.success}}</a>
             </div>
             {{/if}}
+            {{#if session.loggedIn}}
+            <div class="alert alert-info">
+                <a href="/auth/logout">Log out</a>
+            </div>
+            {{/if}}
         </form>
     </div>
 </body>

@@ -10,10 +10,29 @@ router.post('/signin', authController.signin)
 
 // Rotas para renderizar as paginas
 router.get('/signin', (req, res) => {
-	res.render('signin')
+	if(!req.session.loggedIn){
+		res.render('signin', {
+			error: req.flash("error")
+		})
+	} else {
+		res.redirect('/xfiles')
+	}
+	
+})
+
+router.get('/logout', (req, res) => {
+	req.session.destroy()
+	res.redirect('/auth/signin')
 })
 
 router.get('/signup', (req, res) => {
-	res.render('signup')
+	if(!req.session.loggedIn){
+		res.render('signup', {
+			error: req.flash("error")
+		})
+	} else {
+		res.redirect('/xfiles')
+	}
+	
 })
 module.exports = router

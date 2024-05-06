@@ -66,6 +66,9 @@
         <label for="pass">Password:</label>
         <input name="password" id="pass" type="password" placeholder="Enter your password" required>
         <input name="signup" type="submit" value="Sign up">
+        {{#if error}}
+            <div class="error-message">{{ error }}</div>
+        {{/if}}
     </form>
 </body>
 </html>

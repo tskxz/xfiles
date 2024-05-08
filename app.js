@@ -56,6 +56,11 @@ app.get("/ping", (req, res) => {
 	res.send("pong!")
 })
 
+// Homepage
+app.get("/", (req, res) => {
+	res.render('homepage')
+})
+
 // Rota para ir dar upload aos ficheiros
 app.get('/xfiles', (req, res) => {
 	if(req.session.loggedIn){

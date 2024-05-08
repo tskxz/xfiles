@@ -6,6 +6,12 @@
 	<title>Homepage</title>
 </head>
 <body>
-	Para fazer upload, entre numa conta.
+	{{#if session.loggedIn}}
+	 <a href="/xfiles">Faça upload aqui</a>
+	
+	{{else}}
+	<a href="/auth/signin">Entre numa conta primeiro para fazer upload aqui</a>
+	{{/if}}
+
 </body>
 </html>

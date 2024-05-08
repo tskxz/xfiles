@@ -58,7 +58,8 @@ app.get("/ping", (req, res) => {
 
 // Homepage
 app.get("/", (req, res) => {
-	res.render('homepage')
+	res.locals.session = req.session
+	res.render('homepage')	
 })
 
 // Rota para ir dar upload aos ficheiros

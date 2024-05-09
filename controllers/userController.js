@@ -1,4 +1,5 @@
 const User = require("../models/userModel")
+const bcrypt = require("bcrypt")
 
 // Funcao para mostrar todos os utilizadores
 const getUsers = async (req, res) => {
@@ -53,5 +54,26 @@ const setUser = async(req, res) => {
 	}
 }
 
+const signin = async(req, res) => {
+	try {
+		const user = await User.find({username: req.body.username})
+		if(user.length){
+			if(await bcrypt.compare(req.body.password, user[0].password)){
+				req.session.loggedIn = true
+				req.session.username = user[0].username
+				req.session.is_admin = user[0].is_admin
+				console.log(req.session)
+				res.status(200).json(user)
+			} else {
+				// Se a password estiver errada, mostra a mensagem
+				res.status(500).json({message: "Given password is wrong!"})
+			}
+		} else {
+			res.status(500).json({message: "User not found!"})
+		}
+	} catch(error) {
+		res.status(500).json({message: error.message})
+	}
+}
 
-module.exports = {getUsers, createUser, getUserById, getUserByUsername, setUser}
+module.exports = {getUsers, createUser, getUserById, getUserByUsername, setUser, signin}

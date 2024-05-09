@@ -46,9 +46,18 @@ const getUserByUsername = async(req, res) => {
 // Funcao para meter mudar informacoes do utilizador pelo id
 const setUser = async(req, res) => {
 	try {
-		console.log(req.body)
-		const user = await User.findByIdAndUpdate(req.params.id,req.body, {new: true, runValidators: true})
-		res.status(200).json(user)
+		// Vai buscar as informações do utilizador que está autenticado
+		const userAdmin = await User.findOne({ _id: req.session.userId });
+
+		// Verifica se o utilizador que está autenticado é administrador
+		// Se nao for, manda access denied, se for, faz a atualização
+		if (!userAdmin || userAdmin.is_admin !== true){
+			res.status(403).json({message: "Access denied"})
+		} else {
+			const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
+			res.status(200).json(user)
+		}
+		
 	} catch(error) {
 		res.status(500).json({message: error.message})
 	}
@@ -60,9 +69,9 @@ const signin = async(req, res) => {
 		if(user.length){
 			if(await bcrypt.compare(req.body.password, user[0].password)){
 				req.session.loggedIn = true
+				req.session.userId = user[0]._id.toString()
 				req.session.username = user[0].username
 				req.session.is_admin = user[0].is_admin
-				console.log(req.session)
 				res.status(200).json(user)
 			} else {
 				// Se a password estiver errada, mostra a mensagem

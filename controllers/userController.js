@@ -42,5 +42,16 @@ const getUserByUsername = async(req, res) => {
 	}
 }
 
+// Funcao para meter mudar informacoes do utilizador pelo id
+const setUser = async(req, res) => {
+	try {
+		console.log(req.body)
+		const user = await User.findByIdAndUpdate(req.params.id,req.body, {new: true, runValidators: true})
+		res.status(200).json(user)
+	} catch(error) {
+		res.status(500).json({message: error.message})
+	}
+}
 
-module.exports = {getUsers, createUser, getUserById, getUserByUsername}
+
+module.exports = {getUsers, createUser, getUserById, getUserByUsername, setUser}

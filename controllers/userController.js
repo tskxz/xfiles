@@ -22,8 +22,8 @@ const createUser = async(req, res ) => {
 	}
 }
 
-// Funcao para buscar um utilizador
-const getUser = async(req, res) => {
+// Funcao para buscar um utilizador atraves do id
+const getUserById = async(req, res) => {
 	try{
 		const user = await User.find({_id: req.params.id})
 		res.status(200).json(user)
@@ -32,5 +32,15 @@ const getUser = async(req, res) => {
 	}
 }
 
+// Funcao para buscar um utilizador atraves de username
+const getUserByUsername = async(req, res) => {
+	try{
+		const user = await User.find({username: req.params.username})
+		res.status(200).json(user)
+	} catch(error){
+		res.status(500).json({message: error.message})
+	}
+}
 
-module.exports = {getUsers, createUser, getUser}
+
+module.exports = {getUsers, createUser, getUserById, getUserByUsername}

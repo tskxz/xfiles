@@ -34,7 +34,24 @@ const storeFile = async(req, res) => {
 	}
 }
 
+const getImg = async(req, res) => {
+	try{
+		const file_name = req.params.file
+		if(req.session.loggedIn){
+			console.log(req.session)
+			res.redirect(`/xfiles/${file_name}`)
+		} else {
+			console.log(req.session)
+			res.status(500).json({message: "Denied."})
+		}
+		
+	} catch(error){
+		res.status(500).json({message: error.message})
+	}
+}
+
 module.exports = {
 	getxFiles,
-	storeFile
+	storeFile,
+	getImg
 }

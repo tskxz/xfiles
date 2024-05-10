@@ -79,7 +79,7 @@
             <input type="submit" class="btn btn-primary" value="Upload">
             {{#if message.success}}
             <div class="alert alert-success">
-                <a href="{{message.success}}">{{message.success}}</a>
+                <a href="/api/xfiles/{{message.success}}">{{message.success}}</a>
             </div>
             {{/if}}
             {{#if session.loggedIn}}
